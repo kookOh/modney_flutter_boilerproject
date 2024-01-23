@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_boilerplate/features/auth/login/blocs/auth_cubit.dart';
 import 'package:flutter_advanced_boilerplate/features/features/features_screen.dart';
 import 'package:flutter_advanced_boilerplate/features/informations/informations_screen.dart';
+import 'package:flutter_advanced_boilerplate/i18n/en/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_advanced_boilerplate/utils/r.dart';
 
 final $constants = Constants();
 
@@ -140,37 +142,28 @@ class _Navigation {
             onPressed: () => getIt<AuthCubit>().logOut(),
             icon: Icon(MdiIcons.logout),
           ),
-          title: Text(
-            context.t.core.navigation.bottom.features,
-          ),
+          title: Text(''),
         ),
         AppBar(
-          title: Text(
-            context.t.core.navigation.bottom.informations,
-          ),
+          title: Text(''),
         ),
       ];
 
   /// Bottom navigation configuration.
-  List<Widget> bottomNavigationScreens() => const [
-        FeaturesScreen(),
-        InformationsScreen(),
-      ];
+  List<Widget> bottomNavigationScreens() => const [];
 
   List<NavigationDestination> bottomNavigationItems(BuildContext context) => [
         NavigationDestination(
-          icon: Icon(
-            MdiIcons.fire,
-            size: 24,
-          ),
-          label: context.t.core.navigation.bottom.features,
-        ),
+            icon: Icon(
+              MdiIcons.fire,
+              size: 24,
+            ),
+            label: ''),
         NavigationDestination(
-          icon: Icon(
-            MdiIcons.information,
-            size: 24,
-          ),
-          label: context.t.core.navigation.bottom.informations,
-        ),
+            icon: Icon(
+              MdiIcons.information,
+              size: 24,
+            ),
+            label: ''),
       ];
 }

@@ -44,15 +44,7 @@ class _AppWrapperState extends State<AppWrapper> with WidgetsBindingObserver {
         listener: (context, state) {
           // Remove splash screen after initialization.
           FlutterNativeSplash.remove();
-
-          state.whenOrNull(
-            authenticated: (_) {
-              context.router.replaceAll([const AppNavigator()]);
-            },
-            unauthenticated: () {
-              context.router.replaceAll([LoginRoute()]);
-            },
-          );
+          context.router.replaceAll([const AppNavigator()]);
         },
         child: RepaintBoundary(
           key: _key,
