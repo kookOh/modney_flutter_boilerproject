@@ -9,24 +9,28 @@ import 'package:flutter_advanced_boilerplate/modules/graphql/scalars/upload_scal
 part 'graphql_api.graphql.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class PostsPaginated$Query$Posts$Data extends JsonSerializable with EquatableMixin {
+class PostsPaginated$Query$Posts$Data extends JsonSerializable
+    with EquatableMixin {
   PostsPaginated$Query$Posts$Data();
 
   factory PostsPaginated$Query$Posts$Data.fromJson(Map<String, dynamic> json) =>
       _$PostsPaginated$Query$Posts$DataFromJson(json);
 
   String? id;
+
   String? title;
 
   @override
   List<Object?> get props => [id, title];
 
   @override
-  Map<String, dynamic> toJson() => _$PostsPaginated$Query$Posts$DataToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$PostsPaginated$Query$Posts$DataToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
-class PostsPaginated$Query$Posts$Meta extends JsonSerializable with EquatableMixin {
+class PostsPaginated$Query$Posts$Meta extends JsonSerializable
+    with EquatableMixin {
   PostsPaginated$Query$Posts$Meta();
 
   factory PostsPaginated$Query$Posts$Meta.fromJson(Map<String, dynamic> json) =>
@@ -38,16 +42,19 @@ class PostsPaginated$Query$Posts$Meta extends JsonSerializable with EquatableMix
   List<Object?> get props => [totalCount];
 
   @override
-  Map<String, dynamic> toJson() => _$PostsPaginated$Query$Posts$MetaToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$PostsPaginated$Query$Posts$MetaToJson(this);
 }
 
 @JsonSerializable(explicitToJson: true)
 class PostsPaginated$Query$Posts extends JsonSerializable with EquatableMixin {
   PostsPaginated$Query$Posts();
 
-  factory PostsPaginated$Query$Posts.fromJson(Map<String, dynamic> json) => _$PostsPaginated$Query$PostsFromJson(json);
+  factory PostsPaginated$Query$Posts.fromJson(Map<String, dynamic> json) =>
+      _$PostsPaginated$Query$PostsFromJson(json);
 
   List<PostsPaginated$Query$Posts$Data?>? data;
+
   PostsPaginated$Query$Posts$Meta? meta;
 
   @override
@@ -61,7 +68,8 @@ class PostsPaginated$Query$Posts extends JsonSerializable with EquatableMixin {
 class PostsPaginated$Query extends JsonSerializable with EquatableMixin {
   PostsPaginated$Query();
 
-  factory PostsPaginated$Query.fromJson(Map<String, dynamic> json) => _$PostsPaginated$QueryFromJson(json);
+  factory PostsPaginated$Query.fromJson(Map<String, dynamic> json) =>
+      _$PostsPaginated$QueryFromJson(json);
 
   PostsPaginated$Query$Posts? posts;
 
@@ -82,13 +90,18 @@ class PageQueryOptions extends JsonSerializable with EquatableMixin {
     this.search,
   });
 
-  factory PageQueryOptions.fromJson(Map<String, dynamic> json) => _$PageQueryOptionsFromJson(json);
+  factory PageQueryOptions.fromJson(Map<String, dynamic> json) =>
+      _$PageQueryOptionsFromJson(json);
+
+  PaginateOptions? paginate;
+
+  SliceOptions? slice;
+
+  List<SortOptions?>? sort;
 
   List<OperatorOptions?>? operators;
-  PaginateOptions? paginate;
+
   SearchOptions? search;
-  SliceOptions? slice;
-  List<SortOptions?>? sort;
 
   @override
   List<Object?> get props => [paginate, slice, sort, operators, search];
@@ -104,10 +117,12 @@ class PaginateOptions extends JsonSerializable with EquatableMixin {
     this.limit,
   });
 
-  factory PaginateOptions.fromJson(Map<String, dynamic> json) => _$PaginateOptionsFromJson(json);
+  factory PaginateOptions.fromJson(Map<String, dynamic> json) =>
+      _$PaginateOptionsFromJson(json);
+
+  int? page;
 
   int? limit;
-  int? page;
 
   @override
   List<Object?> get props => [page, limit];
@@ -124,11 +139,14 @@ class SliceOptions extends JsonSerializable with EquatableMixin {
     this.limit,
   });
 
-  factory SliceOptions.fromJson(Map<String, dynamic> json) => _$SliceOptionsFromJson(json);
+  factory SliceOptions.fromJson(Map<String, dynamic> json) =>
+      _$SliceOptionsFromJson(json);
+
+  int? start;
 
   int? end;
+
   int? limit;
-  int? start;
 
   @override
   List<Object?> get props => [start, end, limit];
@@ -144,9 +162,11 @@ class SortOptions extends JsonSerializable with EquatableMixin {
     this.order,
   });
 
-  factory SortOptions.fromJson(Map<String, dynamic> json) => _$SortOptionsFromJson(json);
+  factory SortOptions.fromJson(Map<String, dynamic> json) =>
+      _$SortOptionsFromJson(json);
 
   String? field;
+
   @JsonKey(unknownEnumValue: SortOrderEnum.artemisUnknown)
   SortOrderEnum? order;
 
@@ -165,11 +185,13 @@ class OperatorOptions extends JsonSerializable with EquatableMixin {
     this.value,
   });
 
-  factory OperatorOptions.fromJson(Map<String, dynamic> json) => _$OperatorOptionsFromJson(json);
+  factory OperatorOptions.fromJson(Map<String, dynamic> json) =>
+      _$OperatorOptionsFromJson(json);
 
-  String? field;
   @JsonKey(unknownEnumValue: OperatorKindEnum.artemisUnknown)
   OperatorKindEnum? kind;
+
+  String? field;
 
   String? value;
 
@@ -184,7 +206,8 @@ class OperatorOptions extends JsonSerializable with EquatableMixin {
 class SearchOptions extends JsonSerializable with EquatableMixin {
   SearchOptions({this.q});
 
-  factory SearchOptions.fromJson(Map<String, dynamic> json) => _$SearchOptionsFromJson(json);
+  factory SearchOptions.fromJson(Map<String, dynamic> json) =>
+      _$SearchOptionsFromJson(json);
 
   String? q;
 
@@ -222,7 +245,8 @@ class PostsPaginatedArguments extends JsonSerializable with EquatableMixin {
   PostsPaginatedArguments({this.options});
 
   @override
-  factory PostsPaginatedArguments.fromJson(Map<String, dynamic> json) => _$PostsPaginatedArgumentsFromJson(json);
+  factory PostsPaginatedArguments.fromJson(Map<String, dynamic> json) =>
+      _$PostsPaginatedArgumentsFromJson(json);
 
   final PageQueryOptions? options;
 
@@ -305,7 +329,8 @@ final POSTS_PAGINATED_QUERY_DOCUMENT = DocumentNode(definitions: [
   )
 ]);
 
-class PostsPaginatedQuery extends GraphQLQuery<PostsPaginated$Query, PostsPaginatedArguments> {
+class PostsPaginatedQuery
+    extends GraphQLQuery<PostsPaginated$Query, PostsPaginatedArguments> {
   PostsPaginatedQuery({required this.variables});
 
   @override
@@ -318,8 +343,9 @@ class PostsPaginatedQuery extends GraphQLQuery<PostsPaginated$Query, PostsPagina
   final PostsPaginatedArguments variables;
 
   @override
-  PostsPaginated$Query parse(Map<String, dynamic> json) => PostsPaginated$Query.fromJson(json);
+  List<Object?> get props => [document, operationName, variables];
 
   @override
-  List<Object?> get props => [document, operationName, variables];
+  PostsPaginated$Query parse(Map<String, dynamic> json) =>
+      PostsPaginated$Query.fromJson(json);
 }

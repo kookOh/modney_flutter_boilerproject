@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced_boilerplate/features/app/app.dart';
+import 'package:flutter_advanced_boilerplate/i18n/en/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/modules/bloc_observer/observer.dart';
 import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
@@ -61,8 +62,9 @@ Future<void> main() async {
       // Set bloc observer and hydrated bloc storage.
       Bloc.observer = Observer();
       HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory:
-            UniversalPlatform.isWeb ? HydratedStorage.webStorageDirectory : await getApplicationDocumentsDirectory(),
+        storageDirectory: UniversalPlatform.isWeb
+            ? HydratedStorage.webStorageDirectory
+            : await getApplicationDocumentsDirectory(),
       );
 
       return runApp(

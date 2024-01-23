@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_boilerplate/features/app/blocs/app_cubit.dart';
+import 'package:flutter_advanced_boilerplate/i18n/en/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
 import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
 import 'package:flutter_advanced_boilerplate/utils/constants.dart';
