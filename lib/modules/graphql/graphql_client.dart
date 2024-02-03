@@ -1,6 +1,6 @@
-import 'package:flutter_advanced_boilerplate/features/app/models/env_model.dart';
-import 'package:flutter_advanced_boilerplate/modules/graphql/graphql_link.dart';
-import 'package:flutter_advanced_boilerplate/modules/token_refresh/graphql_token_refresh.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/env_model.dart';
+import 'package:modney_flutter_boilerplate/modules/graphql/graphql_link.dart';
+import 'package:modney_flutter_boilerplate/modules/token_refresh/graphql_token_refresh.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 GraphQLClient initGraphQLClient(
@@ -27,7 +27,8 @@ GraphQLClient initGraphQLClient(
   );
 
   return GraphQLClient(
-    defaultPolicies: DefaultPolicies(subscribe: Policies(fetch: FetchPolicy.noCache)),
+    defaultPolicies:
+        DefaultPolicies(subscribe: Policies(fetch: FetchPolicy.noCache)),
     link: link,
     cache: GraphQLCache(),
   );

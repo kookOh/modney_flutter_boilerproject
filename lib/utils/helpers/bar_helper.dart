@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/bar/bar.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/widgets/bar/bar.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 @immutable
@@ -14,7 +14,9 @@ abstract class BarHelper {
     bool isTest = false,
   }) {
     Bar<void> bar;
-    final message = alert.translatable ? (context.t[alert.message] as String) : alert.message;
+    final message = alert.translatable
+        ? (context.t[alert.message] as String)
+        : alert.message;
 
     if (alert.type == AlertType.constructive) {
       bar = _createAlertModal(
@@ -104,7 +106,9 @@ abstract class BarHelper {
       shouldIconPulse: false,
       isDismissible: false,
       duration: isTest ? const Duration(seconds: 1) : duration,
-      animationDuration: isTest ? const Duration(milliseconds: 250) : const Duration(seconds: 1),
+      animationDuration: isTest
+          ? const Duration(milliseconds: 250)
+          : const Duration(seconds: 1),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -27,7 +27,8 @@ void screenshotTest<MC, S>(
       final builder = DeviceBuilder(
         bgColor: Colors.lightBlue,
       )..addScenario(
-          onCreate: widgetTest != null ? (key) => widgetTest(key, tester) : null,
+          onCreate:
+              widgetTest != null ? (key) => widgetTest(key, tester) : null,
           widget: Builder(
             builder: (context) {
               if (cubit != null && initialState != null) {
@@ -55,7 +56,8 @@ void screenshotTest<MC, S>(
       await screenMatchesGolden(
         tester,
         description,
-        customPump: customPump ?? (tester) => tester.pump(const Duration(milliseconds: 500)),
+        customPump: customPump ??
+            (tester) => tester.pump(const Duration(milliseconds: 500)),
       );
     },
   );

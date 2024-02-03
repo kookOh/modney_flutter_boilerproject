@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/features/app/blocs/app_cubit.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/blocs/auth_cubit.dart';
-import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
-import 'package:flutter_advanced_boilerplate/utils/router.gr.dart';
+import 'package:modney_flutter_boilerplate/features/app/blocs/app_cubit.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/blocs/auth_cubit.dart';
+import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
+import 'package:modney_flutter_boilerplate/utils/router.gr.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 

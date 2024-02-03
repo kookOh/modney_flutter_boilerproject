@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/blocs/auth_cubit.dart';
-import 'package:flutter_advanced_boilerplate/features/features/features_screen.dart';
-import 'package:flutter_advanced_boilerplate/features/informations/informations_screen.dart';
-import 'package:flutter_advanced_boilerplate/i18n/en/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/blocs/auth_cubit.dart';
+import 'package:modney_flutter_boilerplate/features/features/features_screen.dart';
+import 'package:modney_flutter_boilerplate/features/informations/informations_screen.dart';
+import 'package:modney_flutter_boilerplate/i18n/en/strings.g.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_advanced_boilerplate/utils/r.dart';
+import 'package:modney_flutter_boilerplate/utils/r.dart';
 
 final $constants = Constants();
 

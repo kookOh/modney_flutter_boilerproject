@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_advanced_boilerplate/utils/router.gr.dart';
+import 'package:modney_flutter_boilerplate/utils/router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends $AppRouter {

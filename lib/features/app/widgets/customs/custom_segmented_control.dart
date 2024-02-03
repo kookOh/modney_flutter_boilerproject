@@ -1,6 +1,6 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/utils/methods/shortcuts.dart';
+import 'package:modney_flutter_boilerplate/utils/methods/shortcuts.dart';
 
 class CustomSegmentedControl<T> extends StatelessWidget {
   const CustomSegmentedControl({

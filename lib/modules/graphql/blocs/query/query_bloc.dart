@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
-import 'package:flutter_advanced_boilerplate/modules/graphql/graphql_exception_handler.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
+import 'package:modney_flutter_boilerplate/modules/graphql/graphql_exception_handler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -73,11 +73,14 @@ abstract class QueryBloc<T> extends Bloc<QueryEvent<T>, QueryState<T>> {
   bool get isRefetching => state is _QueryStateRefetch<T>;
 
   bool get hasData =>
-      state is _QueryStateLoaded<T> || state is _QueryStateFetchMore<T> || state is _QueryStateRefetch<T>;
+      state is _QueryStateLoaded<T> ||
+      state is _QueryStateFetchMore<T> ||
+      state is _QueryStateRefetch<T>;
 
   bool get hasError => state is _QueryStateError<T>;
 
-  AlertModel get getError => graphQLExceptionHandler((state as _QueryStateError<T>).error);
+  AlertModel get getError =>
+      graphQLExceptionHandler((state as _QueryStateError<T>).error);
 
   void dispose() {
     result.close();
@@ -97,17 +100,20 @@ abstract class QueryBloc<T> extends Bloc<QueryEvent<T>, QueryState<T>> {
         );
 
         if (e.optimisticResult != null) {
-          result.options = result.options.copyWithOptimisticResult(e.optimisticResult);
+          result.options =
+              result.options.copyWithOptimisticResult(e.optimisticResult);
         }
 
         result.fetchResults();
       },
       loading: (e) async => emit(QueryState.loading(result: e.result)),
-      loaded: (e) async => emit(QueryState<T>.loaded(data: e.data, result: e.result)),
+      loaded: (e) async =>
+          emit(QueryState<T>.loaded(data: e.data, result: e.result)),
       refetch: (e) async {
         emit(
           QueryState<T>.refetch(
-            data: state.maybeWhen(loaded: (data, _) => data, orElse: () => null),
+            data:
+                state.maybeWhen(loaded: (data, _) => data, orElse: () => null),
           ),
         );
 

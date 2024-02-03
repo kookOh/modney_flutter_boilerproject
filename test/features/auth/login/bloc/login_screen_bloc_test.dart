@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:data_channel/data_channel.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/auth_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/user_model.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/blocs/auth_cubit.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/networking/auth_repository.dart';
-import 'package:flutter_advanced_boilerplate/modules/token_refresh/dio_token_refresh.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/auth_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/user_model.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/blocs/auth_cubit.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/networking/auth_repository.dart';
+import 'package:modney_flutter_boilerplate/modules/token_refresh/dio_token_refresh.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fresh_dio/fresh_dio.dart';
 import 'package:mocktail/mocktail.dart';
@@ -53,7 +53,9 @@ void main() {
     blocTest<AuthCubit, AuthState>(
       'Authenticated',
       build: () {
-        when(() => repository.login(username: any(named: 'username'), password: any(named: 'password'))).thenAnswer(
+        when(() => repository.login(
+            username: any(named: 'username'),
+            password: any(named: 'password'))).thenAnswer(
           (_) async => DC.data(auth),
         );
 

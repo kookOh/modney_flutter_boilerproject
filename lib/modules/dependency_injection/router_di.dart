@@ -1,4 +1,4 @@
-import 'package:flutter_advanced_boilerplate/utils/router.dart';
+import 'package:modney_flutter_boilerplate/utils/router.dart';
 import 'package:injectable/injectable.dart';
 
 @module

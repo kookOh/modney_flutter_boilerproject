@@ -1,4 +1,4 @@
-import 'package:flutter_advanced_boilerplate/features/app/models/user_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_model.freezed.dart';
@@ -13,7 +13,8 @@ class AuthModel with _$AuthModel {
     required UserModel user,
   }) = _AuthModel;
 
-  factory AuthModel.fromJson(Map<String, dynamic> json) => _$AuthModelFromJson(json);
+  factory AuthModel.fromJson(Map<String, dynamic> json) =>
+      _$AuthModelFromJson(json);
 
   factory AuthModel.initial() => AuthModel(
         tokenType: '',

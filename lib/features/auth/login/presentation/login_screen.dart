@@ -2,18 +2,18 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/customs/custom_button.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/customs/custom_textfield.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/utils/keyboard_dismisser.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/utils/material_splash_tappable.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/blocs/auth_cubit.dart';
-import 'package:flutter_advanced_boilerplate/features/auth/login/form/login_form.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/utils/constants.dart';
-import 'package:flutter_advanced_boilerplate/utils/helpers/bar_helper.dart';
-import 'package:flutter_advanced_boilerplate/utils/helpers/permission_helper.dart';
-import 'package:flutter_advanced_boilerplate/utils/methods/shortcuts.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/widgets/customs/custom_button.dart';
+import 'package:modney_flutter_boilerplate/features/app/widgets/customs/custom_textfield.dart';
+import 'package:modney_flutter_boilerplate/features/app/widgets/utils/keyboard_dismisser.dart';
+import 'package:modney_flutter_boilerplate/features/app/widgets/utils/material_splash_tappable.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/blocs/auth_cubit.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/form/login_form.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/utils/constants.dart';
+import 'package:modney_flutter_boilerplate/utils/helpers/bar_helper.dart';
+import 'package:modney_flutter_boilerplate/utils/helpers/permission_helper.dart';
+import 'package:modney_flutter_boilerplate/utils/methods/shortcuts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -74,7 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> selectPhoto() async {
     const maxPhotoSizeInByte = 2000000;
 
-    final photo = await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
+    final photo =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
 
     if (photo == null) {
       return;
@@ -97,7 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
       BarHelper.showAlert(
         context,
         alert: AlertModel(
-          message: context.t.core.file_picker.size_warning(maxSize: maxPhotoSizeInByte / 1000000),
+          message: context.t.core.file_picker
+              .size_warning(maxSize: maxPhotoSizeInByte / 1000000),
           type: AlertType.destructive,
         ),
       );
@@ -158,7 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) ...{
+                  if (UniversalPlatform.isAndroid ||
+                      UniversalPlatform.isIOS) ...{
                     ReactiveFormConsumer(
                       builder: (context, formGroup, child) {
                         return MaterialSplashTappable(
@@ -166,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: checkPermission,
                           child: CircleAvatar(
                             radius: 50,
-                            backgroundColor: getCustomOnPrimaryColor(context).withOpacity(0.05),
+                            backgroundColor: getCustomOnPrimaryColor(context)
+                                .withOpacity(0.05),
                             backgroundImage: photo != null
                                 ? Image.file(
                                     photo!,

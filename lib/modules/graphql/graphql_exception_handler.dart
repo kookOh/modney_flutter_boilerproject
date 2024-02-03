@@ -1,5 +1,5 @@
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 AlertModel graphQLExceptionHandler(OperationException result) {
@@ -9,7 +9,8 @@ AlertModel graphQLExceptionHandler(OperationException result) {
     return e is NetworkException
         ? AlertModel.exception(exception: e)
         : AlertModel.exception(
-            exception: Exception('An unknown graphql client link exception occured.'),
+            exception:
+                Exception('An unknown graphql client link exception occured.'),
           );
   }
 

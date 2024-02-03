@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_advanced_boilerplate/features/app/app.dart';
-import 'package:flutter_advanced_boilerplate/i18n/en/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/modules/bloc_observer/observer.dart';
-import 'package:flutter_advanced_boilerplate/modules/dependency_injection/di.dart';
-import 'package:flutter_advanced_boilerplate/modules/sentry/sentry_module.dart';
+import 'package:modney_flutter_boilerplate/features/app/app.dart';
+import 'package:modney_flutter_boilerplate/i18n/en/strings.g.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/modules/bloc_observer/observer.dart';
+import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
+import 'package:modney_flutter_boilerplate/modules/sentry/sentry_module.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';

@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_advanced_boilerplate/features/app/widgets/bar/bar_route.dart'
+import 'package:modney_flutter_boilerplate/features/app/widgets/bar/bar_route.dart'
     as route;
 
 const String barRouteName = '/barRoute';

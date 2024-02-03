@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_advanced_boilerplate/i18n/strings.g.dart';
-import 'package:flutter_advanced_boilerplate/utils/constants.dart';
-import 'package:flutter_advanced_boilerplate/utils/methods/shortcuts.dart';
+import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
+import 'package:modney_flutter_boilerplate/utils/constants.dart';
+import 'package:modney_flutter_boilerplate/utils/methods/shortcuts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:styled_text/styled_text.dart';
@@ -191,7 +191,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 'bold': StyledTextTag(
                   style: getTextTheme(context).bodySmall!.apply(
                         fontWeightDelta: 1,
-                        color: widget.minLength != null && currentLength < widget.minLength!
+                        color: widget.minLength != null &&
+                                currentLength < widget.minLength!
                             ? $constants.palette.red.withOpacity(0.5)
                             : getTheme(context).primary,
                       ),
@@ -202,7 +203,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   IconData getIcon(FormGroup form) {
-    if (form.status != ControlStatus.disabled && !form.control(widget.formControlName).valid) {
+    if (form.status != ControlStatus.disabled &&
+        !form.control(widget.formControlName).valid) {
       return MdiIcons.asterisk;
     }
 
@@ -223,22 +225,29 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 children: [
                   ReactiveTextField(
                     showErrors: widget.showErrors ? null : (_) => false,
-                    controller: widget.staticValue.isNotEmpty ? TextEditingController(text: widget.staticValue) : null,
+                    controller: widget.staticValue.isNotEmpty
+                        ? TextEditingController(text: widget.staticValue)
+                        : null,
                     readOnly: widget.readOnly,
                     obscureText: widget.obscureText,
                     onTap: widget.onTap,
                     formControlName: widget.formControlName,
                     validationMessages: {
-                      ValidationMessage.minLength: (_) => Translations.of(context).core.errors.form.minLength(
-                            field: widget.labelText,
-                            count: widget.minLength.toString(),
-                          ),
-                      ValidationMessage.maxLength: (_) => Translations.of(context).core.errors.form.maxLength(
-                            field: widget.labelText,
-                            count: widget.maxLength.toString(),
-                          ),
-                      ValidationMessage.required: (_) => context.t.core.errors.form.required(field: widget.labelText),
-                      ValidationMessage.email: (_) => context.t.core.errors.form.email,
+                      ValidationMessage.minLength: (_) =>
+                          Translations.of(context).core.errors.form.minLength(
+                                field: widget.labelText,
+                                count: widget.minLength.toString(),
+                              ),
+                      ValidationMessage.maxLength: (_) =>
+                          Translations.of(context).core.errors.form.maxLength(
+                                field: widget.labelText,
+                                count: widget.maxLength.toString(),
+                              ),
+                      ValidationMessage.required: (_) => context
+                          .t.core.errors.form
+                          .required(field: widget.labelText),
+                      ValidationMessage.email: (_) =>
+                          context.t.core.errors.form.email,
                     },
                     maxLength: widget.maxLength,
                     maxLines: widget.maxLines,
@@ -281,7 +290,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                               padding: const EdgeInsets.only(left: 8),
                               child: Text(
                                 widget.extraInfo,
-                                style: getTextTheme(context).bodySmall!.copyWith(fontStyle: FontStyle.italic),
+                                style: getTextTheme(context)
+                                    .bodySmall!
+                                    .copyWith(fontStyle: FontStyle.italic),
                               ),
                             ),
                           ),

@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:data_channel/data_channel.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/alert_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/auth_model.dart';
-import 'package:flutter_advanced_boilerplate/features/app/models/user_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/alert_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/auth_model.dart';
+import 'package:modney_flutter_boilerplate/features/app/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
@@ -37,7 +37,8 @@ class AuthRepository {
       return DC.data(auth);
     } else {
       final alert = AlertModel.alert(
-        message: 'ID or PW is wrong. Please enter test for demo to both fields.',
+        message:
+            'ID or PW is wrong. Please enter test for demo to both fields.',
         type: AlertType.destructive,
       );
 
