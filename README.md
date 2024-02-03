@@ -136,7 +136,7 @@ In order to hide generated files, navigate to `'VSCode'` -> `'Preferences'` -> `
 
 ```
 **/*.config.dart
-**/*.freezed.dart
+**/*.freezed.dart 
 **/*.inject.summary
 **/*.inject.dart
 **/*.g.dart
