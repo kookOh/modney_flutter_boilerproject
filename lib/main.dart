@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modney_flutter_boilerplate/features/app/app.dart';
-import 'package:modney_flutter_boilerplate/i18n/en/strings.g.dart';
 import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:modney_flutter_boilerplate/modules/bloc_observer/observer.dart';
 import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';

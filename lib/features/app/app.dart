@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modney_flutter_boilerplate/features/app/blocs/app_cubit.dart';
 import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
@@ -24,35 +25,44 @@ class App extends StatelessWidget {
         child: BlocBuilder<AppCubit, AppState>(
           buildWhen: (p, c) => p.theme != c.theme,
           builder: (context, state) {
-            return MaterialApp.router(
-              /// Theme configuration.
-              theme: state.theme.light,
-              darkTheme: state.theme.dark,
-              themeMode: state.theme.mode,
+            return ScreenUtilInit(
+              designSize: const Size(375, 812),
+              minTextAdapt: true,
+              splitScreenMode: true,
+              child: MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: TextScaler.noScaling),
+                child: MaterialApp.router(
+                  /// Theme configuration.
+                  theme: state.theme.light,
+                  darkTheme: state.theme.dark,
+                  themeMode: state.theme.mode,
 
-              /// Environment configuration.
-              title: $constants.appTitle,
-              debugShowCheckedModeBanner: env.debugShowCheckedModeBanner,
-              debugShowMaterialGrid: env.debugShowMaterialGrid,
+                  /// Environment configuration.
+                  title: $constants.appTitle,
+                  debugShowCheckedModeBanner: env.debugShowCheckedModeBanner,
+                  debugShowMaterialGrid: env.debugShowMaterialGrid,
 
-              /// AutoRouter configuration.
-              routerDelegate: AutoRouterDelegate(
-                appRouter,
-                // Sentrie's tracking navigation events with the usage of autorouter.
-                navigatorObservers: () => [
-                  SentryNavigatorObserver(),
-                ],
+                  /// AutoRouter configuration.
+                  routerDelegate: AutoRouterDelegate(
+                    appRouter,
+                    // Sentrie's tracking navigation events with the usage of autorouter.
+                    navigatorObservers: () => [
+                      SentryNavigatorObserver(),
+                    ],
+                  ),
+                  routeInformationParser: appRouter.defaultRouteParser(),
+
+                  /// EasyLocalization configuration.
+                  locale: TranslationProvider.of(context).flutterLocale,
+                  supportedLocales: AppLocaleUtils.supportedLocales,
+                  localizationsDelegates: const [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                ),
               ),
-              routeInformationParser: appRouter.defaultRouteParser(),
-
-              /// EasyLocalization configuration.
-              locale: TranslationProvider.of(context).flutterLocale,
-              supportedLocales: AppLocaleUtils.supportedLocales,
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
             );
           },
         ),

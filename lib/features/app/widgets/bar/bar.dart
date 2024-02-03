@@ -410,7 +410,7 @@ class _BarState<K extends Object?> extends State<Bar<K>>
               }
 
               return ClipRRect(
-                borderRadius: widget.borderRadius,
+                borderRadius: widget.borderRadius ?? BorderRadius.zero,
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
                     sigmaX: widget.barBlur,

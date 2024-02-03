@@ -69,7 +69,7 @@ class AlertModel with _$AlertModel {
     }
 
     if (isTest) {
-      logIt.wtf(message, stackTrace: stackTrace);
+      logIt.fatal(message, stackTrace: stackTrace);
     }
 
     return AlertModel(

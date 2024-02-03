@@ -10,6 +10,18 @@ class R {
 
 class _ImageResources {
   const _ImageResources();
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/login_apple.png)
+  final login_apple = r'assets/images/login_apple.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/login_kakao.png)
+  final login_kakao = r'assets/images/login_kakao.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/main_image.png)
+  final main_image = r'assets/images/main_image.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/login_google.png)
+  final login_google = r'assets/images/login_google.png';
 }
 
 class _SvgResources {

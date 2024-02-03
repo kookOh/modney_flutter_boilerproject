@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modney_flutter_boilerplate/features/auth/login/blocs/auth_cubit.dart';
-import 'package:modney_flutter_boilerplate/features/features/features_screen.dart';
-import 'package:modney_flutter_boilerplate/features/informations/informations_screen.dart';
+import 'package:modney_flutter_boilerplate/features/auth/login/presentation/login_screen.dart';
 import 'package:modney_flutter_boilerplate/i18n/en/strings.g.dart';
 import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
@@ -150,7 +149,7 @@ class _Navigation {
       ];
 
   /// Bottom navigation configuration.
-  List<Widget> bottomNavigationScreens() => const [];
+  List<Widget> bottomNavigationScreens() => const [LoginScreen()];
 
   List<NavigationDestination> bottomNavigationItems(BuildContext context) => [
         NavigationDestination(

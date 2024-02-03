@@ -17,6 +17,7 @@ import 'package:modney_flutter_boilerplate/utils/methods/shortcuts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:modney_flutter_boilerplate/utils/r.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -106,140 +107,197 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
-      bloc: widget.cubit ?? context.read<AuthCubit>(),
-      listener: (context, state) {
-        state.maybeWhen(
-          loading: () {
-            _form
-              ..unfocus()
-              ..markAsDisabled();
-            _btnController.start();
-          },
-          failed: (alert) {
-            _form.markAsEnabled();
-            _btnController.reset();
-
-            BarHelper.showAlert(
-              context,
-              alert: alert,
-              isTest: widget.cubit != null,
-            );
-          },
-          authenticated: (_) {
-            _form
-              ..reset()
-              ..markAsEnabled();
-            _btnController.reset();
-
-            if (widget.cubit != null) {
-              BarHelper.showAlert(
-                context,
-                alert: AlertModel.alert(
-                  message: context.t.core.test.succeded,
-                  type: AlertType.constructive,
-                ),
-                isTest: true,
-              );
-            }
-          },
-          orElse: () {
-            _form.markAsEnabled();
-            _btnController.reset();
-          },
-        );
-      },
-      child: KeyboardDismisserWidget(
-        child: ReactiveForm(
-          formGroup: _form,
-          child: Scaffold(
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (UniversalPlatform.isAndroid ||
-                      UniversalPlatform.isIOS) ...{
-                    ReactiveFormConsumer(
-                      builder: (context, formGroup, child) {
-                        return MaterialSplashTappable(
-                          radius: 50,
-                          onTap: checkPermission,
-                          child: CircleAvatar(
-                            radius: 50,
-                            backgroundColor: getCustomOnPrimaryColor(context)
-                                .withOpacity(0.05),
-                            backgroundImage: photo != null
-                                ? Image.file(
-                                    photo!,
-                                    fit: BoxFit.cover,
-                                  ).image
-                                : null,
-                            child: photo == null
-                                ? Icon(
-                                    MdiIcons.image,
-                                    color: getTheme(context).onBackground,
-                                  )
-                                : null,
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(height: $constants.insets.md),
-                  },
-                  CustomTextField(
-                    key: const Key('username'),
-                    formControlName: 'username',
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    labelText: context.t.core.form.username.label,
-                    hintText: context.t.core.form.username.hint,
-                    minLength: 4,
-                    isRequired: true,
-                  ),
-                  ReactiveFormConsumer(
-                    builder: (context, formGroup, child) {
-                      return CustomTextField(
-                        key: const Key('password'),
-                        formControlName: 'password',
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.send,
-                        obscureText: true,
-                        labelText: context.t.core.form.password.label,
-                        hintText: context.t.core.form.password.hint,
-                        minLength: 4,
-                        isRequired: true,
-                        onSubmitted: _form.valid
-                            ? (_) => BlocProvider.of<AuthCubit>(context).login(
-                                  username: username,
-                                  password: password,
-                                )
-                            : null,
-                      );
-                    },
-                  ),
-                  SizedBox(height: $constants.insets.sm),
-                  ReactiveFormConsumer(
-                    builder: (context, formGroup, child) => CustomButton(
-                      controller: _btnController,
-                      width: getSize(context).width,
-                      text: context.t.login.login_button,
-                      onPressed: _form.valid
-                          ? () => BlocProvider.of<AuthCubit>(context).login(
-                                username: username,
-                                password: password,
-                              )
-                          : null,
-                    ),
-                  ),
-                ],
-              ),
+  Widget buildBody(BuildContext context) {
+    return KeyboardDismisserWidget(
+      child: ReactiveForm(
+        formGroup: _form,
+        child: Scaffold(
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+            child: Column(
+              children: [Image.asset(R.images.main_image)],
             ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<AuthCubit, AuthState>(
+      bloc: widget.cubit ?? context.read<AuthCubit>(),
+      listener: (context, state) {
+        state.maybeWhen(loading: () {
+          _form
+            ..unfocus()
+            ..markAsDisabled();
+          _btnController.start();
+        }, failed: (alert) {
+          _form.markAsEnabled();
+          _btnController.reset();
+
+          BarHelper.showAlert(
+            context,
+            alert: alert,
+            isTest: widget.cubit != null,
+          );
+        }, authenticated: (_) {
+          _form
+            ..reset()
+            ..markAsEnabled();
+          _btnController.reset();
+
+          if (widget.cubit != null) {
+            BarHelper.showAlert(
+              context,
+              alert: AlertModel.alert(
+                message: context.t.core.test.succeded,
+                type: AlertType.constructive,
+              ),
+              isTest: true,
+            );
+          }
+        }, orElse: () {
+          _form.markAsEnabled();
+          _btnController.reset();
+        });
+      },
+      child: buildBody(context),
+    );
+    //   return BlocListener<AuthCubit, AuthState>(
+    //     bloc: widget.cubit ?? context.read<AuthCubit>(),
+    //     listener: (context, state) {
+    //       state.maybeWhen(
+    //         loading: () {
+    //           _form
+    //             ..unfocus()
+    //             ..markAsDisabled();
+    //           _btnController.start();
+    //         },
+    //         failed: (alert) {
+    //           _form.markAsEnabled();
+    //           _btnController.reset();
+
+    //           BarHelper.showAlert(
+    //             context,
+    //             alert: alert,
+    //             isTest: widget.cubit != null,
+    //           );
+    //         },
+    //         authenticated: (_) {
+    //           _form
+    //             ..reset()
+    //             ..markAsEnabled();
+    //           _btnController.reset();
+
+    //           if (widget.cubit != null) {
+    //             BarHelper.showAlert(
+    //               context,
+    //               alert: AlertModel.alert(
+    //                 message: context.t.core.test.succeded,
+    //                 type: AlertType.constructive,
+    //               ),
+    //               isTest: true,
+    //             );
+    //           }
+    //         },
+    //         orElse: () {
+    //           _form.markAsEnabled();
+    //           _btnController.reset();
+    //         },
+    //       );
+    //     },
+    //     child: KeyboardDismisserWidget(
+    //       child: ReactiveForm(
+    //         formGroup: _form,
+    //         child: Scaffold(
+    //           body: Padding(
+    //             padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
+    //             child: Column(
+    //               mainAxisAlignment: MainAxisAlignment.center,
+    //               children: [
+    //                 if (UniversalPlatform.isAndroid ||
+    //                     UniversalPlatform.isIOS) ...{
+    //                   ReactiveFormConsumer(
+    //                     builder: (context, formGroup, child) {
+    //                       return MaterialSplashTappable(
+    //                         radius: 50,
+    //                         onTap: checkPermission,
+    //                         child: CircleAvatar(
+    //                           radius: 50,
+    //                           backgroundColor: getCustomOnPrimaryColor(context)
+    //                               .withOpacity(0.05),
+    //                           backgroundImage: photo != null
+    //                               ? Image.file(
+    //                                   photo!,
+    //                                   fit: BoxFit.cover,
+    //                                 ).image
+    //                               : null,
+    //                           child: photo == null
+    //                               ? Icon(
+    //                                   MdiIcons.image,
+    //                                   color: getTheme(context).onBackground,
+    //                                 )
+    //                               : null,
+    //                         ),
+    //                       );
+    //                     },
+    //                   ),
+    //                   SizedBox(height: $constants.insets.md),
+    //                 },
+    //                 CustomTextField(
+    //                   key: const Key('username'),
+    //                   formControlName: 'username',
+    //                   keyboardType: TextInputType.text,
+    //                   textInputAction: TextInputAction.next,
+    //                   labelText: context.t.core.form.username.label,
+    //                   hintText: context.t.core.form.username.hint,
+    //                   minLength: 4,
+    //                   isRequired: true,
+    //                 ),
+    //                 ReactiveFormConsumer(
+    //                   builder: (context, formGroup, child) {
+    //                     return CustomTextField(
+    //                       key: const Key('password'),
+    //                       formControlName: 'password',
+    //                       keyboardType: TextInputType.text,
+    //                       textInputAction: TextInputAction.send,
+    //                       obscureText: true,
+    //                       labelText: context.t.core.form.password.label,
+    //                       hintText: context.t.core.form.password.hint,
+    //                       minLength: 4,
+    //                       isRequired: true,
+    //                       onSubmitted: _form.valid
+    //                           ? (_) => BlocProvider.of<AuthCubit>(context).login(
+    //                                 username: username,
+    //                                 password: password,
+    //                               )
+    //                           : null,
+    //                     );
+    //                   },
+    //                 ),
+    //                 SizedBox(height: $constants.insets.sm),
+    //                 ReactiveFormConsumer(
+    //                   builder: (context, formGroup, child) => CustomButton(
+    //                     controller: _btnController,
+    //                     width: getSize(context).width,
+    //                     text: context.t.login.login_button,
+    //                     onPressed: _form.valid
+    //                         ? () => BlocProvider.of<AuthCubit>(context).login(
+    //                               username: username,
+    //                               password: password,
+    //                             )
+    //                         : null,
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    // }
   }
 }

@@ -22,10 +22,10 @@ class AppNavigator extends StatelessWidget {
                 .bottomNavigationScreens()
                 .elementAt(state.pageIndex),
           ),
-          bottomNavigationBar: BottomNavigation(
-            destinations: $constants.navigation.bottomNavigationItems(context),
-            currentPageIndex: state.pageIndex,
-          ),
+          // bottomNavigationBar: BottomNavigation(
+          //   destinations: $constants.navigation.bottomNavigationItems(context),
+          //   currentPageIndex: state.pageIndex,
+          // ),
         );
       },
     );
