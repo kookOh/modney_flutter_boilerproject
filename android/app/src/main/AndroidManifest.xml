@@ -3,13 +3,15 @@
     <!-- Permissions options for the `storage` group -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+     <uses-permission android:name="android.permission.INTERNET" />
 
    <application
         android:label="flutter_advanced_boilerplate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
-        android:fullBackupContent="@xml/backup_rules">
+        android:fullBackupContent="@xml/backup_rules"
+        android:usesCleartextTraffic="true">
         <!-- By default Android backups data on Google Drive. It can cause exception java.security.InvalidKeyException:Failed to unwrap key while using flutter_secure_storage so two lines above fixes this. -->
         <activity
             android:name=".MainActivity"

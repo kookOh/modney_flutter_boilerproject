@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:modney_flutter_boilerplate/features/app/app.dart';
 import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:modney_flutter_boilerplate/modules/bloc_observer/observer.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
       // Preserve splash screen until authentication complete.
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
       FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+      AuthRepository.initialize(appKey: 'jskey');
 
       // Use device locale.
       LocaleSettings.useDeviceLocale();
