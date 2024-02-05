@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:modney_flutter_boilerplate/theme/color/app_color_scheme.dart';
 
 Size getSize(BuildContext context) {
   return MediaQuery.of(context).size;
@@ -37,11 +39,13 @@ TextTheme getTextTheme(BuildContext context) {
 }
 
 Color getPrimaryColor(BuildContext context) {
-  return ElevationOverlay.colorWithOverlay(getTheme(context).surface, getTheme(context).primary, 3);
+  return ElevationOverlay.colorWithOverlay(
+      getTheme(context).surface, getTheme(context).primary, 3);
 }
 
 Color getCustomOnPrimaryColor(BuildContext context) {
-  return getTheme(context).primary.withOpacity(0.5);
+  return const Color(0xFF001AFF);
+  //  getTheme(context).primary;
 /*   return ElevationOverlay.colorWithOverlay(
     getTheme(context).primary,
     getTheme(context).background,

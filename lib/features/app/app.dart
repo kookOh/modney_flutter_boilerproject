@@ -30,8 +30,7 @@ class App extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               child: MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaler: TextScaler.noScaling),
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
                 child: MaterialApp.router(
                   /// Theme configuration.
                   theme: state.theme.light,

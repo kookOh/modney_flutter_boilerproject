@@ -14,7 +14,7 @@ class Constants {
   /// API configuration.
   late final api = _API();
 
-  final appTitle = 'Flutter Advanced Boilerplate';
+  final appTitle = '3RKorea';
 
   /// Rounded edge corner radiuses.
   late final corners = _Corners();
@@ -137,10 +137,14 @@ class _Navigation {
   /// Appbar configuration.
   List<AppBar> appbars(BuildContext context) => [
         AppBar(
-          leading: IconButton(
-            onPressed: () => getIt<AuthCubit>().logOut(),
-            icon: Icon(MdiIcons.logout),
+          leading: Padding(
+            padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
+            child: Image.asset(
+              R.images.app_logo,
+              fit: BoxFit.contain,
+            ),
           ),
+          leadingWidth: 240,
           title: Text(''),
         ),
         AppBar(

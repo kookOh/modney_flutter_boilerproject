@@ -70,7 +70,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void didChangeDependencies() {
-    _textFieldBackground = getCustomOnPrimaryColor(context).withOpacity(0.05);
+    _textFieldBackground = Colors.white;
+    // getCustomOnPrimaryColor(context).withOpacity(0.05);
     super.didChangeDependencies();
   }
 
@@ -90,9 +91,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   void onFocusChange({required bool focus}) {
     setState(() {
-      _textFieldBackground = focus
-          ? getCustomOnPrimaryColor(context).withOpacity(0.1)
-          : getCustomOnPrimaryColor(context).withOpacity(0.05);
+      _textFieldBackground = Colors.white;
+      // _textFieldBackground = focus
+      //     ? getCustomOnPrimaryColor(context).withOpacity(0.1)
+      //     : getCustomOnPrimaryColor(context).withOpacity(0.05);
     });
   }
 

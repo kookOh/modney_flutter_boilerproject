@@ -82,11 +82,11 @@ class AppColorScheme with _$AppColorScheme {
 
   MaterialColorScheme get materialColorScheme => MaterialColorScheme(
         brightness: brightness,
-        primary: primary,
+        primary: const Color(0xFF001AFF),
         onPrimary: onPrimary,
         primaryContainer: primaryContainer,
         onPrimaryContainer: onPrimaryContainer,
-        secondary: secondary,
+        secondary: const Color(0xFF93EAFF),
         onSecondary: onSecondary,
         secondaryContainer: secondaryContainer,
         onSecondaryContainer: onSecondaryContainer,

@@ -22,7 +22,7 @@ Future<void> main() async {
       // Preserve splash screen until authentication complete.
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
       FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-      AuthRepository.initialize(appKey: 'jskey');
+      AuthRepository.initialize(appKey: '9794d1df49a54c79f7ea7c7df1ea2973');
 
       // Use device locale.
       LocaleSettings.useDeviceLocale();

@@ -29,7 +29,9 @@ Future<ThemeData> createTheme({
     appColorScheme.primary,
     3,
   );
-  final customOnPrimaryColor = appColorScheme.primary.withOpacity(0.5);
+
+  final customOnPrimaryColor = const Color(0x001AFF);
+  // appColorScheme.primary.withOpacity(0.5);
 
   return ThemeData(
     textTheme: textTheme.materialTextTheme,

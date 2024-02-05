@@ -34,6 +34,7 @@ dependency_overrides:
   intl: 0.18.1
 
 dependencies:
+  accordion: ^2.6.0
   animations: ^2.0.8
 
   auto_route: ^7.8.4
@@ -52,6 +53,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_secure_storage: ^9.0.0
   flutter_staggered_grid_view: ^0.7.0
+  flutter_webrtc: ^0.9.48+hotfix.1
   freezed_annotation: 2.4.1
   fresh_dio: ^0.4.1
   fresh_graphql: 0.5.2
@@ -66,6 +68,7 @@ dependencies:
   intl: 0.18.1
   json_annotation: 4.8.1
   json_theme: ^6.3.2
+  kakao_map_plugin: ^0.2.5
   keframe: 3.0.0
   logger: ^2.0.2+1
   material_design_icons_flutter: 7.0.7296

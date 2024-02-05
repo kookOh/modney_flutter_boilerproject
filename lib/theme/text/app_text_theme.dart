@@ -48,6 +48,12 @@ class AppTextTheme with _$AppTextTheme {
 }
 
 extension customTextTheme on MaterialTextTheme {
+  TextStyle get placeholder => TextStyle(
+        color: const Color(0xFF6B6868),
+        fontSize: 16,
+        fontFamily: 'Pretendard',
+        fontWeight: FontWeight.w400,
+      );
   TextStyle get body3bold => TextStyle(
         color: Color(0xFF212121),
         fontSize: 14.sp,

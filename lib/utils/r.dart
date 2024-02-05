@@ -11,11 +11,32 @@ class R {
 class _ImageResources {
   const _ImageResources();
 
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/icon_my.png)
+  final icon_my = r'assets/images/icon_my.png';
+
   /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/login_apple.png)
   final login_apple = r'assets/images/login_apple.png';
 
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/image_machine.png)
+  final image_machine = r'assets/images/image_machine.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/icon_mypage.png)
+  final icon_mypage = r'assets/images/icon_mypage.png';
+
   /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/login_kakao.png)
   final login_kakao = r'assets/images/login_kakao.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/icon_marker.png)
+  final icon_marker = r'assets/images/icon_marker.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/icon_drug.png)
+  final icon_drug = r'assets/images/icon_drug.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/Group 33.png)
+  final group_33 = r'assets/images/Group 33.png';
+
+  /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/app_logo.png)
+  final app_logo = r'assets/images/app_logo.png';
 
   /// ![](/Users/minchanpark/Documents/PJT/rkorea/modney_flutter_boilerproject/assets/images/main_image.png)
   final main_image = r'assets/images/main_image.png';

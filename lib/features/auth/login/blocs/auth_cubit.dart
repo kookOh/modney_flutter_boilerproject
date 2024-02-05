@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fresh_graphql/fresh_graphql.dart';
 import 'package:injectable/injectable.dart';
+import 'package:modney_flutter_boilerplate/utils/methods/aliases.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 part 'auth_cubit.freezed.dart';
@@ -35,6 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
   }) async {
     emit(const AuthState.loading());
+    logIt.debug('login');
 
     final response = await _authRepository.login(
       username: username,
