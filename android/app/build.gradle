@@ -48,7 +48,7 @@ android {
         manifestPlaceholders = [applicationName: "android.app.Application"]
         minSdkVersion 25 //flutter.minSdkVersion
         targetSdkVersion 33 //flutter.targetSdkVersion
-        versionCode 6.toInteger() //flutterVersionCode.toInteger()
+        versionCode flutterVersionCode.toInteger() //flutterVersionCode.toInteger()
         versionName '1.0.0' //flutterVersionName
     }
 
