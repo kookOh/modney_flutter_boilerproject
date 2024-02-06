@@ -83,6 +83,7 @@ dependencies:
   sentry_flutter: ^7.14.0
   shimmer: 3.0.0
   slang: ^3.29.0
+  socket_io_client: ^2.0.3+1
   spring_button: 2.0.0
   statsfl: 2.3.0
   styled_text: ^8.1.0

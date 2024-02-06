@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modney_flutter_boilerplate/features/app/blocs/app_cubit.dart';
+import 'package:modney_flutter_boilerplate/features/facechat/module/signalling_service.dart';
 import 'package:modney_flutter_boilerplate/i18n/strings.g.dart';
 import 'package:modney_flutter_boilerplate/modules/dependency_injection/di.dart';
 import 'package:modney_flutter_boilerplate/utils/constants.dart';
@@ -13,9 +16,17 @@ import 'package:statsfl/statsfl.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
+  static final String selfCallerID = "111111";
+  static final String selfCalleeID = "222222";
+  static final String websocketUrl = "http://192.168.6.5:5001";
+  // "http://localhost:5001";
 
   @override
   Widget build(BuildContext context) {
+    SignallingService.instance.init(
+      websocketUrl: websocketUrl,
+      selfCallerID: selfCallerID,
+    );
     return StatsFl(
       maxFps: 120,
       align: Alignment.bottomRight,

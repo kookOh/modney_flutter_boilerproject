@@ -1,15 +1,26 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:http/io_client.dart';
+import 'package:modney_flutter_boilerplate/features/app/app.dart';
 import 'package:modney_flutter_boilerplate/features/app/widgets/customs/custom_alert_modal.dart';
 import 'package:modney_flutter_boilerplate/features/app/widgets/customs/default_appbar.dart';
 import 'package:modney_flutter_boilerplate/features/app/widgets/customs/primary_button.dart';
+import 'package:modney_flutter_boilerplate/features/facechat/module/signalling_service.dart';
 import 'package:modney_flutter_boilerplate/features/facechat/presentation/widgets/certification.dart';
 import 'package:modney_flutter_boilerplate/utils/constants.dart';
+import 'package:modney_flutter_boilerplate/utils/methods/aliases.dart';
 import 'package:modney_flutter_boilerplate/utils/methods/shortcuts.dart';
 import 'package:modney_flutter_boilerplate/utils/router.gr.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'package:socket_io_client/socket_io_client.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 @RoutePage()
 class FacechatScreen extends StatefulWidget {
@@ -22,21 +33,196 @@ class FacechatScreen extends StatefulWidget {
 
 class _FacechatScreenState extends State<FacechatScreen> {
   // Signaling? _signaling;
-  List<dynamic> _peers = [];
-  String? _selfId;
-
-  RTCVideoRenderer _localRenderer = RTCVideoRenderer();
-  RTCVideoRenderer _remoteRenderer = RTCVideoRenderer();
-  bool _inCalling = false;
-  // Session? _session;
-  DesktopCapturerSource? selected_source_;
-  bool _waitAccept = false;
+  // socket instance
+  final socket = SignallingService.instance.socket;
+  // videoRenderer for localPeer
+  final _localRTCVideoRenderer = RTCVideoRenderer();
+  // videoRenderer for remotePeer
+  final _remoteRTCVideoRenderer = RTCVideoRenderer();
+  // mediaStream for localPeer
+  MediaStream? _localStream;
+  // RTC peer connection
+  RTCPeerConnection? _rtcPeerConnection;
+  // list of rtcCandidates to be sent over signalling
+  List<RTCIceCandidate> rtcIceCadidates = [];
+  // media status
+  bool isAudioOn = true, isVideoOn = true, isFrontCameraSelected = true;
+  dynamic incomingSDPOffer, offer;
 
   @override
   void initState() {
-    _localRenderer.initialize();
-    _remoteRenderer.initialize();
+    // initializing renderers
+
+    SignallingService.instance.socket!.on("newCall", (data) {
+      if (mounted) {
+        // set SDP Offer of incoming call
+        setState(() {
+          incomingSDPOffer = data;
+          offer = incomingSDPOffer['sdpOffer'];
+          // calleeId = incomingSDPOffer['callerId'];
+        });
+        logIt.debug('selfId ${App.selfCallerID}');
+        logIt.debug('offer $offer');
+      }
+    });
+    _localRTCVideoRenderer.initialize();
+    _remoteRTCVideoRenderer.initialize();
+    // setup Peer Connection
+    _setupPeerConnection();
+
     super.initState();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  _setupPeerConnection() async {
+    // create peer connection
+    _rtcPeerConnection = await createPeerConnection({
+      'iceServers': [
+        {
+          'urls': [
+            'stun:stun1.l.google.com:19302',
+            'stun:stun2.l.google.com:19302'
+          ]
+        }
+      ]
+    });
+    // listen for remotePeer mediaTrack event
+    _rtcPeerConnection!.onTrack = (event) {
+      _remoteRTCVideoRenderer.srcObject = event.streams[0];
+      setState(() {});
+    };
+    // get localStream
+    _localStream = await navigator.mediaDevices.getUserMedia({
+      'audio': isAudioOn,
+      'video': isVideoOn
+          ? {'facingMode': isFrontCameraSelected ? 'user' : 'environment'}
+          : false,
+    });
+    // add mediaTrack to peerConnection
+    _localStream!.getTracks().forEach((track) {
+      _rtcPeerConnection!.addTrack(track, _localStream!);
+    });
+    // set source for local video renderer
+    _localRTCVideoRenderer.srcObject = _localStream;
+    setState(() {});
+    // for Incoming call
+    if (offer != null) {
+      // listen for Remote IceCandidate
+      socket!.on("IceCandidate", (data) {
+        String candidate = data["iceCandidate"]["candidate"];
+        String sdpMid = data["iceCandidate"]["id"];
+        int sdpMLineIndex = data["iceCandidate"]["label"];
+        // add iceCandidate
+        _rtcPeerConnection!.addCandidate(RTCIceCandidate(
+          candidate,
+          sdpMid,
+          sdpMLineIndex,
+        ));
+      });
+      // set SDP offer as remoteDescription for peerConnection
+      await _rtcPeerConnection!.setRemoteDescription(
+        RTCSessionDescription(offer["sdp"], offer["type"]),
+      );
+      // create SDP answer
+      RTCSessionDescription answer = await _rtcPeerConnection!.createAnswer();
+      // set SDP answer as localDescription for peerConnection
+      _rtcPeerConnection!.setLocalDescription(answer);
+      // send SDP answer to remote peer over signalling
+      socket!.emit("answerCall", {
+        "callerId":
+            UniversalPlatform.isAndroid ? App.selfCalleeID : App.selfCallerID,
+        "sdpAnswer": answer.toMap(),
+      });
+    }
+    // for Outgoing Call
+    else {
+      // listen for local iceCandidate and add it to the list of IceCandidate
+      _rtcPeerConnection!.onIceCandidate =
+          (RTCIceCandidate candidate) => rtcIceCadidates.add(candidate);
+      // when call is accepted by remote peer
+      socket!.on("callAnswered", (data) async {
+        // set SDP answer as remoteDescription for peerConnection
+        await _rtcPeerConnection!.setRemoteDescription(
+          RTCSessionDescription(
+            data["sdpAnswer"]["sdp"],
+            data["sdpAnswer"]["type"],
+          ),
+        );
+        // send iceCandidate generated to remote peer over signalling
+        for (RTCIceCandidate candidate in rtcIceCadidates) {
+          socket!.emit("IceCandidate", {
+            "calleeId": UniversalPlatform.isAndroid
+                ? App.selfCallerID
+                : App.selfCalleeID,
+            "iceCandidate": {
+              "id": candidate.sdpMid,
+              "label": candidate.sdpMLineIndex,
+              "candidate": candidate.candidate
+            }
+          });
+        }
+      });
+      // create SDP Offer
+      RTCSessionDescription offer = await _rtcPeerConnection!.createOffer();
+      // set SDP offer as localDescription for peerConnection
+      await _rtcPeerConnection!.setLocalDescription(offer);
+      // make a call to remote peer over signalling
+      socket!.emit('makeCall', {
+        "calleeId":
+            UniversalPlatform.isAndroid ? App.selfCallerID : App.selfCalleeID,
+        "sdpOffer": offer.toMap(),
+      });
+    }
+  }
+
+  _leaveCall() {
+    Navigator.pop(context);
+  }
+
+  _toggleMic() {
+    // change status
+    isAudioOn = !isAudioOn;
+    // enable or disable audio track
+    _localStream?.getAudioTracks().forEach((track) {
+      track.enabled = isAudioOn;
+    });
+    setState(() {});
+  }
+
+  _toggleCamera() {
+    // change status
+    isVideoOn = !isVideoOn;
+    // enable or disable video track
+    _localStream?.getVideoTracks().forEach((track) {
+      track.enabled = isVideoOn;
+    });
+    setState(() {});
+  }
+
+  _switchCamera() {
+    // change status
+    isFrontCameraSelected = !isFrontCameraSelected;
+    // switch camera
+    _localStream?.getVideoTracks().forEach((track) {
+      // ignore: deprecated_member_use
+      track.switchCamera();
+    });
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _localRTCVideoRenderer.dispose();
+    _remoteRTCVideoRenderer.dispose();
+    _localStream?.dispose();
+    _rtcPeerConnection?.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,7 +244,10 @@ class _FacechatScreenState extends State<FacechatScreen> {
                   ),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: RTCVideoView(_remoteRenderer),
+                child: RTCVideoView(
+                  _remoteRTCVideoRenderer,
+                  objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                ),
               ),
             ),
             Positioned(
@@ -75,7 +264,10 @@ class _FacechatScreenState extends State<FacechatScreen> {
                   ),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child: RTCVideoView(_localRenderer),
+                child: RTCVideoView(
+                  _localRTCVideoRenderer,
+                  objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+                ),
               ),
             ),
             Positioned(
@@ -84,12 +276,13 @@ class _FacechatScreenState extends State<FacechatScreen> {
               child: GestureDetector(
                 onTap: () {
                   // show certification
-                  showDialog<void>(
-                    context: context,
-                    builder: (context) {
-                      return const Certification();
-                    },
-                  );
+                  // showDialog<void>(
+                  //   context: context,
+                  //   builder: (context) {
+                  //     return const Certification();
+                  //   },
+                  // );
+                  _setupPeerConnection();
                 },
                 child: Container(
                   padding: EdgeInsets.all($constants.insets.xxs),
